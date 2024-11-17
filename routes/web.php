@@ -3,9 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use App\Models\Admin;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Admin\CategoryController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -18,8 +18,14 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-   Route::post('/profile/store', [UserController::class, 'edit'])->name
+   Route::post('/profile/store', [UserController::class, 'ProfileStore'])->name
    ('profile.store'); 
+   Route::get('/user/logout', [UserController::class, 'UserLogout'])->name
+   ('user.logout'); 
+   Route::get('change/password', [UserController::class, 'ChangePassword'])->name
+   ('change.password'); 
+   Route::post('/user/password/update', [UserController::class, 'UserPasswordUpdate'])->name
+   ('user.password.update'); 
 });
 
 require __DIR__.'/auth.php';
@@ -63,3 +69,11 @@ Route::get('/client/register', [ClientController::class, 'ClientRegister'])->nam
 Route::post('/client/register/submit', [ClientController::class, 'ClientRegisterSubmit'])->name('client.register.submit');
 Route::post('/client/login_submit', [ClientController::class, 'ClientLoginSubmit'])->name('client.login_submit');
 Route::get('/client/logout', [ClientController::class, 'ClientLogout'])->name('client.logout');
+
+/// All Admin Category
+Route::middleware(['admin'])->group(function(){
+    Route::controller(CategoryController::class)->group(function(){
+        Route::get('/all/category', 'AllCategory')->name('all.category');
+    });
+
+}); // End Admin Middleware

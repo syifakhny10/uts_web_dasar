@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Has;
@@ -12,7 +13,6 @@ class UserController extends Controller
     public function Index() {
         return view('frontend.index');
     } //End Method
-    
 
     public function ProfileStore(Request $request){
         $id = Auth::user()->id;
@@ -44,7 +44,6 @@ class UserController extends Controller
         
         return redirect()->back()->with($notification);
     }
-    
     // End Method
 
     private function deleteOldImage(string $oldPhotoPath): void {
@@ -55,5 +54,41 @@ class UserController extends Controller
     }
     // End Private Method
 
+    public function UserLogout() {
+        Auth::guard('web')->logout();
+        return redirect()->route('login')->with('succes', 'Logout
+        Succesfully');
+    }
+    // End Method
+    public function ChangePassword() {
+        return view('frontend.dashboard.change_password');
+    }
+    // End Method
+
+    public function UserPasswordUpdate(Request $request){
+        $user = Auth::guard('web')->user();
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed'
+        ]);
+
+        if(!Hash::check($request->old_password, $user->password)){
+            $notification = array(
+                'message' => 'Old Password Does not Match',
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
+        }
+        //update the new password
+        User::whereId($user->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+        $notification = array(
+            'message' => 'Password Changes Successfully',
+            'alert-type' => 'success'
+        );
+        return back()->with($notification);
+    }
+     // End Method
 
 }

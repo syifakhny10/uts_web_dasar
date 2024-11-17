@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin;
-use App\Mail\Websitemail;
-use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
+use Ilmuninate\Support\Facades\Hash;
+use App\Mail\Websitemail;
+use App\Models\Category;
 
 class AdminController extends Controller
 {
