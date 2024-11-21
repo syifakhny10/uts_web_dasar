@@ -19,13 +19,13 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
    Route::post('/profile/store', [UserController::class, 'ProfileStore'])->name
-   ('profile.store'); 
+   ('profile.store');
    Route::get('/user/logout', [UserController::class, 'UserLogout'])->name
-   ('user.logout'); 
+   ('user.logout');
    Route::get('change/password', [UserController::class, 'ChangePassword'])->name
-   ('change.password'); 
+   ('change.password');
    Route::post('/user/password/update', [UserController::class, 'UserPasswordUpdate'])->name
-   ('user.password.update'); 
+   ('user.password.update');
 });
 
 require __DIR__.'/auth.php';
@@ -53,7 +53,7 @@ Route::get('/admin/forget_password', [AdminController::class, 'AdminForgetPasswo
 
 Route::post('/admin/password_submit', [AdminController::class, 'AdminPasswordSubmit'])->name('admin.password_submit');
 
-/// ALL ROUTE FOR CLIENT 
+/// ALL ROUTE FOR CLIENT
 
 Route::middleware('client')->group(function () {
     Route::get('/client/dashboard', [ClientController::class, 'ClientDashboard'])->name('client.dashboard');
@@ -61,7 +61,7 @@ Route::middleware('client')->group(function () {
     Route::post('/client/profile/store', [ClientController::class, 'ClientProfileStore'])->name('client.profile.store');
     Route::get('/client/change/password', [ClientController::class, 'ClientChangePassword'])->name('client.change.password');
     Route::post('/client/password/update', [ClientController::class, 'ClientPasswordUpdate'])->name('client.password.update');
-    
+
 });
 
 Route::get('/client/login', [ClientController::class, 'ClientLogin'])->name('client.login');
@@ -72,8 +72,23 @@ Route::get('/client/logout', [ClientController::class, 'ClientLogout'])->name('c
 
 /// All Admin Category
 Route::middleware(['admin'])->group(function(){
+
     Route::controller(CategoryController::class)->group(function(){
         Route::get('/all/category', 'AllCategory')->name('all.category');
+        Route::get('/add/category', 'AddCategory')->name('add.category');
+        Route::post('/store/category', 'StoreCategory')->name('category.store');
+        Route::get('/edit/category/{id}', 'EditCategory')->name('edit.category');
+        Route::post('/update/category', 'UpdateCategory')->name('category.update');
+        Route::get('/delete/category/{id}', 'DeleteCategory')->name('delete.category');
+    });
+
+    Route::controller(CategoryController::class)->group(function(){
+        Route::get('/all/city', 'AllCity')->name('all.city');
+        Route::get('/add/category', 'AddCategory')->name('add.category');
+        Route::post('/store/category', 'StoreCategory')->name('category.store');
+        Route::get('/edit/category/{id}', 'EditCategory')->name('edit.category');
+        Route::post('/update/category', 'UpdateCategory')->name('category.update');
+        Route::get('/delete/category/{id}', 'DeleteCategory')->name('delete.category');
     });
 
 }); // End Admin Middleware

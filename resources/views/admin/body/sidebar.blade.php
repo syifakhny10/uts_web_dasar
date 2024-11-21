@@ -28,13 +28,31 @@
                 </li>
 
                 <li>
-                    <a href="apps-chat.html">
+                    <a href="{{ route('add.category')}}">
                         <span data-key="t-chat">Add Category</span>
                     </a>
 
                 </li>
             </ul>
         </li>
+
+        <li>
+            <a href="javascript: void(0);" class="has-arrow">
+                <i data-feather="grid"></i>
+                <span data-key="t-apps">City</span>
+            </a>
+            <ul class="sub-menu" aria-expanded="false">
+        <li>
+            <a href="{{ route('all.city')}}">
+                <span data-key="t-calendar">All City</span>
+            </a>
+        </li>
+
+        <li>
+
+        </li>
+    </ul>
+</li>
 
         <li>
             <a href="javascript: void(0);" class="has-arrow">
