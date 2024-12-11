@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
@@ -160,10 +161,8 @@ Route::middleware(['client', 'status'])->group(function () {
 
 /// That will be for all user
 Route::get('/changeStatus', [RestaurantController::class, 'ChangeStatus']);
-Route::controller(HomeController::class)->group(function () {
+Route::controller(HomeControllerroller::class)->group(function () {
     Route::get('/restaurant/details/{id}', 'RestaurantDetails')->name('res.details');
     Route::post('/add-wish-list/{id}', 'AddWishList');
-
-
 });
 
