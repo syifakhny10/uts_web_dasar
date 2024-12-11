@@ -59,7 +59,7 @@
                                         @endif
                                         <form class="mt-4 pt-2" method="POST" action="{{ route('admin.login_submit') }}">
                                             @csrf
-                                            
+
                                             <div class="mb-3">
                                                 <label class="form-label">Email</label>
                                                 <input type="email" name="email" class="form-control" id="email" placeholder="Enter Email">
@@ -75,7 +75,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="input-group auth-pass-inputgroup">
                                                     <input type="password" name="password" class="form-control" placeholder="Enter Password" aria-label="Password" aria-describedby="password-addon">
                                                     <button class="btn btn-light shadow-none ms-0" type="button" id="password-addon"><i class="mdi mdi-eye-outline"></i></button>
@@ -88,9 +88,9 @@
                                                         <label class="form-check-label" for="remember-check">
                                                             Remember me
                                                         </label>
-                                                    </div>  
+                                                    </div>
                                                 </div>
-                                                
+
                                             </div>
                                             <div class="mb-3">
                                                 <button class="btn btn-primary w-100 waves-effect waves-light" type="submit">Log In</button>

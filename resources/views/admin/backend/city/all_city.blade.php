@@ -12,8 +12,9 @@
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <a href="{{ route('add.category')}}" class="btn btn-primary
-                            waves-effect waves-light">Add City</a>
+                            <button type="button" class="btn btn-primary
+                            waves-effect waves-light"
+                            data-bs-toggle="modal" data-bs-target="#myModal">Add City</button>
                         </ol>
                     </div>
 
@@ -47,11 +48,16 @@
                                 <td>{{ $key+1 }}</td>
                                 <td>{{ $item->city_name }}</td>
                                 <td>{{ $item->city_slug }}</td>
-                                <td><a href="{{ route('edit.category',$item->id) }} "
-                                class="btn btn-info
-                                waves-effect waves-light">Edit</a>
-                                <a href="{{ route('delete.category',$item->id) }} " class="btn btn-danger
-                                waves-effect waves-light"id="delete">Delete</a>
+                                <td>
+                                    <button type="button" class="btn btn-primary
+                                    waves-effect waves-light"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#myEdit" id="{{ $item->id}}"
+                                    onclick="cityEdit(this.id)">Edit</button>
+
+                                    <a href="{{ route('delete.city',$item->id) }} "
+                                    class="btn btn-danger waves-effect waves-light"
+                                    id="delete">Delete</a>
                             </td>
                             </tr>
                             @endforeach
@@ -67,5 +73,96 @@
 
     </div> <!-- container-fluid -->
 </div>
+
+<!-- sample modal content -->
+<div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" data-bs-scroll="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Add City</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="myForm" action="{{ route('city.store') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div>
+                                <div class="form-group mb-3">
+                                    <label for="example-text-input" class="form-label">City Name</label>
+                                    <input class="form-control" type="text"
+                                    name="city_name">
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary waves-effect waves-light">Save changes</button>
+            </div>
+        </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+<!-- edit modal content -->
+<div id="myEdit" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" data-bs-scroll="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Edit City</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="myForm" action="{{ route('city.update') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+<input type="hidden" name="cat_id" id="cat_id">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div>
+                                <div class="form-group mb-3">
+                                    <label for="example-text-input" class="form-label">City Name</label>
+                                    <input class="form-control" type="text"
+                                    name="city_name" id="cat">
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary waves-effect waves-light">Save changes</button>
+            </div>
+        </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+    function cityEdit(id){
+            $.ajax({
+                type: 'GET',
+                url: '/edit/city/' + id,
+                dataType: 'json',
+
+                success:function(data){
+                    // console.log(data)
+                    $('#cat').val(data.city_name);
+                    $('#cat_id').val(data.id);
+            }
+        })
+    }
+</script>
+
+
 
 @endsection

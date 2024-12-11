@@ -19,7 +19,7 @@ class AdminController extends Controller
         return view('admin.index');
     }
     // End Method
- 
+
     public function AdminLoginSubmit(Request $request){
         $request->validate([
             'email' => 'required|email',
@@ -31,7 +31,7 @@ class AdminController extends Controller
             'password' => $check['password'],
         ];
         if (Auth::guard('admin')->attempt($data)) {
-            return redirect()->route('admin.admin_dashboard')->with('success', 'Login Successfully');
+            return redirect()->route('admin.dashboard')->with('success', 'Login Successfully');
         }else{
             return redirect()->route('admin.login')->with('error', 'Invalid Creadentials');
         }
@@ -79,20 +79,20 @@ class AdminController extends Controller
         public function AdminProfileStore(Request $request){
             $id = Auth::guard('admin')->id();
             $data = Admin::find($id);
-    
+
             $data->name = $request->name;
             $data->email = $request->email;
             $data->phone = $request->phone;
             $data->address = $request->address;
-    
+
             $oldPhotoPath = $data->photo;
-    
+
             if($request->hasFile('photo')){
                 $file = $request->file('photo');
                 $filename = time().'.'.$file->getClientOriginalExtension();
                 $file->move(public_path('upload/admin_images'),$filename);
                 $data->photo = $filename;
-    
+
                 if($oldPhotoPath && $oldPhotoPath !== $filename){
                     $this->deleteOldImage($oldPhotoPath);
                 }
@@ -110,7 +110,7 @@ class AdminController extends Controller
                 unlink($fullPath);
             }
         }
-    
+
 
         public function AdminProfile()
     {
@@ -154,6 +154,6 @@ class AdminController extends Controller
         );
         return back()->with($notification);
 
-    
+
     }
 }

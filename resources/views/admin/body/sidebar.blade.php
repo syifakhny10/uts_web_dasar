@@ -9,7 +9,7 @@
                 <li class="menu-title" data-key="t-menu">Menu</li>
 
                 <li>
-                    <a href="{{route('admin.admin_dashboard')}}">
+                    <a href="{{route('admin.dashboard')}}">
                         <i data-feather="home"></i>
                         <span data-key="t-dashboard">Dashboard</span>
                     </a>
@@ -22,19 +22,20 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                 <li>
-                    <a href="{{ route('all.category')}}">
+                    <a href="{{ route('all.category') }}">
                         <span data-key="t-calendar">All Category</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{ route('add.category')}}">
+                    <a href="{{ route('add.category') }}">
                         <span data-key="t-chat">Add Category</span>
                     </a>
+                            </li>
 
-                </li>
-            </ul>
-        </li>
+
+                        </ul>
+                    </li>
 
         <li>
             <a href="javascript: void(0);" class="has-arrow">
@@ -51,6 +52,49 @@
         <li>
 
         </li>
+    </ul>
+</li>
+
+<li>
+    <a href="javascript: void(0);" class="has-arrow">
+        <i data-feather="grid"></i>
+        <span data-key="t-apps">Manage Product</span>
+    </a>
+    <ul class="sub-menu" aria-expanded="false">
+        <li>
+                <a href="{{ route('admin.all.product') }}">
+                    <span data-key="t-calendar">All Product</span>
+                </a>
+        </li>
+
+        <li>
+            <a href="{{ route('admin.add.product') }}">
+                <span data-key="t-chat">Add Product</span>
+            </a>
+        </li>
+
+    </ul>
+</li>
+
+
+<li>
+    <a href="javascript: void(0);" class="has-arrow">
+        <i data-feather="grid"></i>
+        <span data-key="t-apps">Manage Restaurant</span>
+    </a>
+    <ul class="sub-menu" aria-expanded="false">
+        <li>
+            <a href="{{ route('pending.restaurant') }}">
+                <span data-key="t-calendar">Pending Restaurant </span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ route('approve.restaurant') }}">
+                <span data-key="t-chat">Approve Restaurant</span>
+            </a>
+        </li>
+
     </ul>
 </li>
 
@@ -98,7 +142,7 @@
 
     <div class="card sidebar-alert border-0 text-center mx-4 mb-0 mt-5">
         <div class="card-body">
-            <img src="{{asset('backend/assets/images/giftbox.png')}}" alt="">
+            {{-- <img src="{{asset('backend/assets/images/giftbox.png')}}" alt=""> --}}
             <div class="mt-4">
                 <h5 class="alertcard-title font-size-16">Unlimited Access</h5>
                 <p class="font-size-13">Upgrade your plan from a Free trial, to select ‘Business Plan’.</p>
