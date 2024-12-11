@@ -72,7 +72,7 @@ Route::post('/client/login_submit', [ClientController::class, 'ClientLoginSubmit
 Route::get('/client/logout', [ClientController::class, 'ClientLogout'])->name('client.logout');
 
 /// All Admin Category
-Route::middleware(['admin'])->group(function(){
+Route::middleware('admin')->group(function(){
 
     Route::controller(CategoryController::class)->group(function(){
         Route::get('/all/category', 'AllCategory')->name('all.category');
@@ -107,10 +107,18 @@ Route::middleware(['admin'])->group(function(){
         Route::get('/approve/restaurant', 'ApproveRestaurant')->name('approve.restaurant');
     });
 
+    Route::controller(ManageController::class)->group(function(){
+        Route::get('/all/banner', 'AllBanner')->name('all.banner');
+        Route::post('/banner/store', 'BannerStore')->name('banner.store');
+        Route::get('/edit/banner/{id}', 'EditBanner');
+        Route::post('/banner/update', 'BannerUpdate')->name('banner.update');
+        Route::get('/delete/banner/{id}', 'DeleteBanner')->name('delete.banner');
+    });
+
 }); // End Admin Middleware
 
-Route::middleware('client')->group(function () {
-    Route::controller(RestaurantController::class)->group(function(){
+Route::middleware(['client', 'status'])->group(function () {
+        Route::controller(RestaurantController::class)->group(function(){
         Route::get('/all/menu', 'AllMenu')->name('all.menu');
         Route::get('/add/menu', 'AddMenu')->name('add.menu');
         Route::post('/store/menu', 'StoreMenu')->name('menu.store');
